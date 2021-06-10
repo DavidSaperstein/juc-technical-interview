@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Form from '/Form'
+import Form from './Form'
 import './styles.css'
 
 const App = (props) => {
@@ -13,15 +13,17 @@ const App = (props) => {
   }
 
   return (
-    <>
+    <div className='container'>
       {toggle ? (
         <div>
-          <button onClick={handleToggle}>Contact Us Again?</button>
+          <button className='contact-again' onClick={handleToggle}>Click Here To Contact Us Again</button>
         </div>
       ) : (
         <Form toggle={handleToggle} />
       )
       }
-    </>
+    </div>
   )
 }
+
+export default App
