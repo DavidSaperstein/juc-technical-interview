@@ -31,14 +31,6 @@ body {
   background-color: rgba(58, 86, 131, 0.9);
 }
 
-/* .inputs-container {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-} */
-
 label {
   display: flex;
   flex-direction: column;
@@ -66,11 +58,38 @@ button {
 }
 
 .contact-again {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 50vh;
   max-width: 400px;
   border: 3px solid black;
   background-color: rgba(58, 86, 131, 0.9);
+  padding: 30px;
+}
+
+.contact-again > p {
   color: ivory;
-  font-size: 50px;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.contact-again-button {
+  width: 80%;
+  background-color: rgba(255, 57, 116, 0.76);
+  border: solid white 1px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: white;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 15px;
+  margin: 0 auto;
+}
+
+.asterisk {
+  color: rgba(255, 150, 150, 0.9);
 }

@@ -4,7 +4,7 @@ import EmailValidator from 'email-validator'
 import { isFuture } from 'date-fns'
 
 const Form = (props) => {
-  
+
   const initialState = {
     name: '',
     email: '',
@@ -14,7 +14,6 @@ const Form = (props) => {
   
   const [inputs, setInputs] = useState(initialState)
   const [isDisabled, setIsDisabled] = useState(true)
-  const [dateError, setDateError] = useState('')
   
   const {name, email, birthDate, emailConsent} = inputs
   
@@ -26,11 +25,6 @@ const Form = (props) => {
     setIsDisabled(!isValid)
   }, [inputs])
 
-  // const handleDateError = (date) => {
-  //   if(isFuture(new Date(date))) {
-  //     setDateError('Birthdate cannot be in the future.')
-  //   }
-  // }
   const handleChange = (e) => {
     const {name} = e.target
     const value = e.target.type === 'checkbox'
@@ -39,10 +33,6 @@ const Form = (props) => {
     setInputs(prevInputs => {
       return {...prevInputs, [name] : value}
     })
-    // if(e.target.type === 'date') {
-    //   handleDateError(value)
-    //   e.target.setCustomValidity(dateError)
-    // }
   }
 
   const handleClear = (e) => {
@@ -56,7 +46,7 @@ const Form = (props) => {
     axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', inputs)
     .then(res => {
       console.log(res)
-      alert(`Contact request successful. Your message number is ${res.data.id}.`)
+      props.setMessage(`Contact request successful. Your message number is ${res.data.id}.`)
       setInputs(initialState)
     })
     .catch(err => {
@@ -73,7 +63,7 @@ const Form = (props) => {
       <form className='form' onSubmit={handleSubmit}>
         <h1>Contact Us</h1>
         <label>
-          Name {name.length > 0 ? '' : '*'}
+          <div>Name {name.length > 0 ? '' : <span className='asterisk'>*</span>}</div>
           <input
             // style={{border: name.length > 0 === true ? '1px solid black' : '3px dotted red'}}
             type='text' 
@@ -86,7 +76,7 @@ const Form = (props) => {
         </label>
 
         <label>
-          Email {EmailValidator.validate(email) ? '' : '*'}
+          <div>Email {EmailValidator.validate(email) ? '' : <span className='asterisk'>*</span>}</div>
           <input
             // style={{border: EmailValidator.validate(email) === true ? '1px solid black' : '3px dotted red'}}
             type='email' 
@@ -99,7 +89,7 @@ const Form = (props) => {
         </label>
 
         <label>
-          Birthdate: {isFuture(new Date(birthDate)) ? 'Birthdate cannot be in the future.' : ''}
+          Birthdate
           <input 
             type='date' 
             name='birthDate' 
@@ -107,6 +97,7 @@ const Form = (props) => {
             placeholder='Birthday' 
             onChange={handleChange}
           />
+          {isFuture(new Date(birthDate)) ? <span className='asterisk'>(Birthdate cannot be in the future.)</span> : ''}
         </label>
 
         <label className='checkbox-container'>
@@ -119,7 +110,7 @@ const Form = (props) => {
             onChange={handleChange} 
             required
           />
-          I agree to be contacted via email.{emailConsent === true ? '' : '*'}
+          I agree to be contacted via email.{emailConsent === true ? '' : <span className='asterisk'>*</span>}
         </label>
 
         <div className='button-container'>
