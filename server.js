@@ -2,6 +2,8 @@ const cors = require('cors')
 const path = require('path')
 const serveStatic = require('serve-static')
 
+const server = express()
+
 const whitelist = [
   'localhost:3000',
   'localhost:8080',
